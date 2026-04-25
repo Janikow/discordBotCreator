@@ -476,9 +476,11 @@ function generateEventBody(evt) {
 }
 
 function generateEnv() {
+  const token = document.getElementById('botToken')?.value?.trim();
   return `# Discord Bot Token
 # Get this from: https://discord.com/developers/applications
-DISCORD_TOKEN=your_token_here
+# Bot tab → Reset Token → copy it
+DISCORD_TOKEN=${token || 'paste_your_token_here'}
 
 # Optional: Bot Application ID (for slash commands)
 # CLIENT_ID=your_client_id_here
@@ -637,6 +639,18 @@ function loadExample() {
   switchTab('commands');
   showToast('✅ Example bot loaded!');
 }
+
+// --- TOKEN ---
+function toggleTokenVisibility() {
+  const input = document.getElementById('botToken');
+  const btn = document.getElementById('tokenToggle');
+  if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; }
+  else { input.type = 'password'; btn.textContent = '👁'; }
+}
+
+document.getElementById('botToken')?.addEventListener('input', () => {
+  if (state.currentFile === 'env') generateCode();
+});
 
 // --- INIT ---
 renderEvents();

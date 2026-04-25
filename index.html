@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BotForge — Discord Bot Creator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <span class="logo-icon">⚡</span>
+      <span class="logo-text">BotForge</span>
+    </div>
+    <nav>
+      <a href="#builder" class="nav-link active" data-tab="builder">Builder</a>
+      <a href="#events" class="nav-link" data-tab="events">Events</a>
+      <a href="#commands" class="nav-link" data-tab="commands">Commands</a>
+      <a href="#code" class="nav-link" data-tab="code">Generate</a>
+    </nav>
+    <button class="btn-generate" id="headerGenBtn">Generate Bot →</button>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">No code required</div>
+    <h1>Build Discord Bots<br /><span class="accent">Without Writing Code</span></h1>
+    <p class="hero-sub">Design commands, events, and responses visually. Export production-ready bot code in seconds.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="scrollToBuilder()">Start Building</button>
+      <button class="btn-ghost" onclick="loadExample()">Load Example Bot</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">15+</span><span class="stat-label">Event Types</span></div>
+      <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Commands</span></div>
+      <div class="stat"><span class="stat-num">1-click</span><span class="stat-label">Export</span></div>
+    </div>
+  </section>
+
+  <!-- MAIN APP -->
+  <main id="builder">
+
+    <!-- TAB: BUILDER -->
+    <section class="tab-section active" id="tab-builder">
+      <div class="section-header">
+        <h2>Bot Configuration</h2>
+        <p>Set your bot's identity and core settings</p>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">🤖 Bot Identity</div>
+          <div class="form-group">
+            <label>Bot Name</label>
+            <input type="text" id="botName" placeholder="MyAwesomeBot" class="input" />
+          </div>
+          <div class="form-group">
+            <label>Bot Prefix</label>
+            <input type="text" id="botPrefix" placeholder="!" class="input" maxlength="5" />
+          </div>
+          <div class="form-group">
+            <label>Bot Token Variable</label>
+            <input type="text" id="tokenVar" value="DISCORD_TOKEN" class="input" readonly />
+            <span class="hint">Stored securely in .env</span>
+          </div>
+          <div class="form-group">
+            <label>Bot Description</label>
+            <textarea id="botDesc" placeholder="A helpful bot for my server..." class="input textarea" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">⚙️ Bot Features</div>
+          <div class="toggle-list">
+            <div class="toggle-item">
+              <div>
+                <div class="toggle-label">Slash Commands</div>
+                <div class="toggle-desc">Use Discord's / command system</div>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="useSlash" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="toggle-item">
+              <div>
+                <div class="toggle-label">Prefix Commands</div>
+                <div class="toggle-desc">Traditional ! prefix commands</div>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="usePrefix" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="toggle-item">
+              <div>
+                <div class="toggle-label">Welcome Messages</div>
+                <div class="toggle-desc">Greet new members automatically</div>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="useWelcome" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="toggle-item">
+              <div>
+                <div class="toggle-label">Auto-Roles</div>
+                <div class="toggle-desc">Assign roles on join</div>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="useAutoRole" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="toggle-item">
+              <div>
+                <div class="toggle-label">Logging</div>
+                <div class="toggle-desc">Log events to a channel</div>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="useLogging" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🌐 Intents & Permissions</div>
+          <div class="intent-grid">
+            <label class="intent-chip" data-intent="GUILDS"><input type="checkbox" value="GatewayIntentBits.Guilds" checked /> Guilds</label>
+            <label class="intent-chip" data-intent="GUILD_MESSAGES"><input type="checkbox" value="GatewayIntentBits.GuildMessages" checked /> Guild Messages</label>
+            <label class="intent-chip" data-intent="MESSAGE_CONTENT"><input type="checkbox" value="GatewayIntentBits.MessageContent" checked /> Message Content</label>
+            <label class="intent-chip" data-intent="GUILD_MEMBERS"><input type="checkbox" value="GatewayIntentBits.GuildMembers" /> Guild Members</label>
+            <label class="intent-chip" data-intent="GUILD_BANS"><input type="checkbox" value="GatewayIntentBits.GuildBans" /> Guild Bans</label>
+            <label class="intent-chip" data-intent="GUILD_PRESENCES"><input type="checkbox" value="GatewayIntentBits.GuildPresences" /> Presences</label>
+            <label class="intent-chip" data-intent="DIRECT_MESSAGES"><input type="checkbox" value="GatewayIntentBits.DirectMessages" /> Direct Messages</label>
+            <label class="intent-chip" data-intent="GUILD_VOICE_STATES"><input type="checkbox" value="GatewayIntentBits.GuildVoiceStates" /> Voice States</label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: EVENTS -->
+    <section class="tab-section" id="tab-events">
+      <div class="section-header">
+        <h2>Event Handlers</h2>
+        <p>Configure what your bot does when things happen</p>
+      </div>
+      <div id="eventsList" class="events-container"></div>
+      <button class="btn-add" id="addEventBtn">+ Add Event Handler</button>
+    </section>
+
+    <!-- TAB: COMMANDS -->
+    <section class="tab-section" id="tab-commands">
+      <div class="section-header">
+        <h2>Bot Commands</h2>
+        <p>Define what commands users can run</p>
+      </div>
+      <div id="commandsList" class="commands-container"></div>
+      <button class="btn-add" id="addCommandBtn">+ Add Command</button>
+    </section>
+
+    <!-- TAB: CODE -->
+    <section class="tab-section" id="tab-code">
+      <div class="section-header">
+        <h2>Generated Code</h2>
+        <p>Your production-ready bot is ready to deploy</p>
+      </div>
+      <div class="code-panel">
+        <div class="code-tabs">
+          <button class="code-tab active" data-file="index">index.js</button>
+          <button class="code-tab" data-file="env">.env</button>
+          <button class="code-tab" data-file="package">package.json</button>
+          <button class="code-tab" data-file="readme">README.md</button>
+        </div>
+        <div class="code-actions">
+          <button class="btn-copy" id="copyBtn" onclick="copyCode()">📋 Copy</button>
+          <button class="btn-download" onclick="downloadAll()">⬇ Download All</button>
+        </div>
+        <div class="code-output">
+          <pre id="codeOutput"><code id="codeContent"></code></pre>
+        </div>
+      </div>
+      <div class="deploy-steps">
+        <h3>Deploy to Replit</h3>
+        <div class="steps">
+          <div class="step"><span class="step-num">1</span><span>Create a new Node.js Repl on <a href="https://replit.com" target="_blank">replit.com</a></span></div>
+          <div class="step"><span class="step-num">2</span><span>Upload the downloaded files or paste the code</span></div>
+          <div class="step"><span class="step-num">3</span><span>Add your bot token in Replit Secrets as <code>DISCORD_TOKEN</code></span></div>
+          <div class="step"><span class="step-num">4</span><span>Run <code>npm install</code> then <code>node index.js</code></span></div>
+          <div class="step"><span class="step-num">5</span><span>Keep alive with UptimeRobot pinging your Repl URL</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODALS -->
+  <div class="modal-overlay" id="eventModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="eventModalTitle">Add Event Handler</h3>
+        <button class="modal-close" onclick="closeModal('eventModal')">✕</button>
+      </div>
+      <div class="form-group">
+        <label>Event Type</label>
+        <select id="eventType" class="input select">
+          <option value="messageCreate">messageCreate — When a message is sent</option>
+          <option value="guildMemberAdd">guildMemberAdd — When a member joins</option>
+          <option value="guildMemberRemove">guildMemberRemove — When a member leaves</option>
+          <option value="ready">ready — When bot comes online</option>
+          <option value="interactionCreate">interactionCreate — Slash command used</option>
+          <option value="messageReactionAdd">messageReactionAdd — Reaction added</option>
+          <option value="messageDelete">messageDelete — Message deleted</option>
+          <option value="guildBanAdd">guildBanAdd — Member banned</option>
+          <option value="channelCreate">channelCreate — Channel created</option>
+          <option value="voiceStateUpdate">voiceStateUpdate — Voice state changed</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Response / Action</label>
+        <select id="eventAction" class="input select" onchange="updateEventFields()">
+          <option value="sendMessage">Send a message to a channel</option>
+          <option value="dmUser">DM the user</option>
+          <option value="addRole">Add a role</option>
+          <option value="removeRole">Remove a role</option>
+          <option value="logToChannel">Log to a channel</option>
+          <option value="customCode">Custom code snippet</option>
+        </select>
+      </div>
+      <div id="eventFields"></div>
+      <div class="modal-footer">
+        <button class="btn-ghost" onclick="closeModal('eventModal')">Cancel</button>
+        <button class="btn-primary" onclick="saveEvent()">Save Event</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="commandModal">
+    <div class="modal modal-wide">
+      <div class="modal-header">
+        <h3 id="commandModalTitle">Add Command</h3>
+        <button class="modal-close" onclick="closeModal('commandModal')">✕</button>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Command Name</label>
+          <input type="text" id="cmdName" placeholder="ping" class="input" />
+        </div>
+        <div class="form-group">
+          <label>Aliases (comma-separated)</label>
+          <input type="text" id="cmdAliases" placeholder="p, pong" class="input" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" id="cmdDesc" placeholder="Check the bot's latency" class="input" />
+      </div>
+      <div class="form-group">
+        <label>Response Type</label>
+        <select id="cmdResponseType" class="input select" onchange="updateCommandFields()">
+          <option value="text">Plain text reply</option>
+          <option value="embed">Embed reply</option>
+          <option value="ping">Ping (latency check)</option>
+          <option value="userInfo">User info</option>
+          <option value="serverInfo">Server info</option>
+          <option value="customCode">Custom code</option>
+        </select>
+      </div>
+      <div id="commandFields"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Cooldown (seconds)</label>
+          <input type="number" id="cmdCooldown" value="0" min="0" class="input" />
+        </div>
+        <div class="form-group">
+          <label>Required Permission</label>
+          <select id="cmdPermission" class="input select">
+            <option value="">None (everyone)</option>
+            <option value="MANAGE_MESSAGES">Manage Messages</option>
+            <option value="MANAGE_ROLES">Manage Roles</option>
+            <option value="KICK_MEMBERS">Kick Members</option>
+            <option value="BAN_MEMBERS">Ban Members</option>
+            <option value="ADMINISTRATOR">Administrator</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-ghost" onclick="closeModal('commandModal')">Cancel</button>
+        <button class="btn-primary" onclick="saveCommand()">Save Command</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

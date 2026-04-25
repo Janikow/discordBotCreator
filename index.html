@@ -64,9 +64,24 @@
             <input type="text" id="botPrefix" placeholder="!" class="input" maxlength="5" />
           </div>
           <div class="form-group">
-            <label>Bot Token Variable</label>
-            <input type="text" id="tokenVar" value="DISCORD_TOKEN" class="input" readonly />
-            <span class="hint">Stored securely in .env</span>
+            <label>Discord Bot Token</label>
+            <div class="token-input-row">
+              <input type="password" id="botToken" placeholder="Paste your token here (optional)" class="input" />
+              <button class="btn-eye" id="tokenToggle" onclick="toggleTokenVisibility()" title="Show/hide token">👁</button>
+            </div>
+            <span class="hint">⚠️ Never share your token. It's only used locally to pre-fill your .env file.</span>
+          </div>
+          <div class="token-guide">
+            <div class="token-guide-title">🔑 How to get your token</div>
+            <ol class="token-steps">
+              <li>Go to <a href="https://discord.com/developers/applications" target="_blank">discord.com/developers/applications</a></li>
+              <li>Click <strong>New Application</strong> → give it a name</li>
+              <li>Go to the <strong>Bot</strong> tab → click <strong>Add Bot</strong></li>
+              <li>Under <strong>Token</strong> click <strong>Reset Token</strong> → copy it</li>
+              <li>Enable <strong>Privileged Gateway Intents</strong> you need below</li>
+              <li>Go to <strong>OAuth2 → URL Generator</strong> to invite your bot</li>
+            </ol>
+            <a href="https://discord.com/developers/applications" target="_blank" class="btn-portal">Open Developer Portal →</a>
           </div>
           <div class="form-group">
             <label>Bot Description</label>

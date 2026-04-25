@@ -188,13 +188,39 @@
         </div>
       </div>
       <div class="deploy-steps">
-        <h3>Deploy to Replit</h3>
-        <div class="steps">
-          <div class="step"><span class="step-num">1</span><span>Create a new Node.js Repl on <a href="https://replit.com" target="_blank">replit.com</a></span></div>
-          <div class="step"><span class="step-num">2</span><span>Upload the downloaded files or paste the code</span></div>
-          <div class="step"><span class="step-num">3</span><span>Add your bot token in Replit Secrets as <code>DISCORD_TOKEN</code></span></div>
-          <div class="step"><span class="step-num">4</span><span>Run <code>npm install</code> then <code>node index.js</code></span></div>
-          <div class="step"><span class="step-num">5</span><span>Keep alive with UptimeRobot pinging your Repl URL</span></div>
+        <div class="deploy-header">
+          <h3>Deploy Instructions</h3>
+          <div class="platform-switcher">
+            <button class="platform-btn active" data-platform="replit" onclick="switchPlatform('replit')">
+              <span class="platform-icon">🔁</span> Replit
+            </button>
+            <button class="platform-btn" data-platform="render" onclick="switchPlatform('render')">
+              <span class="platform-icon">🟣</span> Render
+            </button>
+          </div>
+        </div>
+
+        <div class="platform-steps active" id="steps-replit">
+          <div class="steps">
+            <div class="step"><span class="step-num">1</span><span>Create a new Node.js Repl on <a href="https://replit.com" target="_blank">replit.com</a></span></div>
+            <div class="step"><span class="step-num">2</span><span>Upload the downloaded files or paste the code into the editor</span></div>
+            <div class="step"><span class="step-num">3</span><span>Add your bot token in Replit <strong>Secrets</strong> (not .env) as <code>DISCORD_TOKEN</code></span></div>
+            <div class="step"><span class="step-num">4</span><span>Run <code>npm install</code> then click <strong>Run</strong> 🚀</span></div>
+            <div class="step"><span class="step-num">5</span><span>Keep alive 24/7 — use <a href="https://uptimerobot.com" target="_blank">UptimeRobot</a> to ping your Repl URL every 5 minutes</span></div>
+          </div>
+        </div>
+
+        <div class="platform-steps" id="steps-render">
+          <div class="render-note">
+            ⚠️ The generated code includes a keep-alive Express server required for Render's free tier.
+          </div>
+          <div class="steps">
+            <div class="step"><span class="step-num">1</span><span>Push your downloaded files to a <a href="https://github.com" target="_blank">GitHub</a> repository (add <code>.env</code> to <code>.gitignore</code>)</span></div>
+            <div class="step"><span class="step-num">2</span><span>Create a new <strong>Web Service</strong> on <a href="https://render.com" target="_blank">render.com</a> and connect your GitHub repo</span></div>
+            <div class="step"><span class="step-num">3</span><span>Set <strong>Build Command</strong> to <code>npm install</code> and <strong>Start Command</strong> to <code>node index.js</code></span></div>
+            <div class="step"><span class="step-num">4</span><span>Add <code>DISCORD_TOKEN</code> under <strong>Environment → Secret Files</strong> or Environment Variables</span></div>
+            <div class="step"><span class="step-num">5</span><span>Click <strong>Deploy</strong> — then use <a href="https://uptimerobot.com" target="_blank">UptimeRobot</a> to ping your Render URL every 14 minutes to prevent sleep</span></div>
+          </div>
         </div>
       </div>
     </section>
